@@ -1,0 +1,723 @@
+git.exe : warning: in the working copy of 'arch/arm64/boot/dts/qcom/sm8150.dtsi',
+ LF will be replaced by CRLF the next time Git touches it
+所在位置 行:15 字符: 8
++   $d = & $git diff --no-index --no-color -- $a $b 2>&1 | Out-String
++        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (warning: in the... Git touches it:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+warning: in the working copy of 'arch/arm64/boot/dts/qcom/sm8150.dtsi', LF will be repla
+ced by CRLF the next time Git touches it
+diff --git a/arch/arm64/boot/dts/qcom/sm8150.dtsi b/arch/arm64/boot/dts/qcom/sm8150.dtsi
+index 6d63f9b..6ee09f9 100644
+--- a/arch/arm64/boot/dts/qcom/sm8150.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8150.dtsi
+@@ -3799,6 +3799,111 @@
+ 			#power-domain-cells = <1>;
+ 		};
+ 
++		camss: camss@ac65000 {
++			compatible = "qcom,sm8150-camss";
++			status = "disabled";
++
++			reg = <0 0x0ac65000 0 0x1000>,
++			      <0 0x0ac66000 0 0x1000>,
++			      <0 0x0acb3000 0 0x1000>,
++			      <0 0x0acba000 0 0x1000>,
++			      <0 0x0acaf000 0 0x4000>,
++			      <0 0x0acb6000 0 0x4000>;
++			reg-names = "csiphy0", "csiphy1",
++				    "csid0", "csid1",
++				    "vfe0", "vfe1";
++
++			interrupts = <GIC_SPI 477 IRQ_TYPE_EDGE_RISING>,
++				     <GIC_SPI 478 IRQ_TYPE_EDGE_RISING>,
++				     <GIC_SPI 464 IRQ_TYPE_EDGE_RISING>,
++				     <GIC_SPI 466 IRQ_TYPE_EDGE_RISING>,
++				     <GIC_SPI 465 IRQ_TYPE_EDGE_RISING>,
++				     <GIC_SPI 467 IRQ_TYPE_EDGE_RISING>;
++			interrupt-names = "csiphy0", "csiphy1",
++					  "csid0", "csid1",
++					  "vfe0", "vfe1";
++
++			power-domains = <&camcc IFE_0_GDSC>,
++					<&camcc IFE_1_GDSC>,
++					<&camcc TITAN_TOP_GDSC>;
++
++			clocks = <&camcc CAM_CC_CAMNOC_AXI_CLK>,
++				 <&camcc CAM_CC_CORE_AHB_CLK>,
++				 <&camcc CAM_CC_SLOW_AHB_CLK_SRC>,
++				 <&camcc CAM_CC_CPAS_AHB_CLK>,
++				 <&camcc CAM_CC_CPHY_RX_CLK_SRC>,
++				 <&camcc CAM_CC_CSIPHY0_CLK>,
++				 <&camcc CAM_CC_CSI0PHYTIMER_CLK_SRC>,
++				 <&camcc CAM_CC_CSI0PHYTIMER_CLK>,
++				 <&camcc CAM_CC_CSIPHY1_CLK>,
++				 <&camcc CAM_CC_CSI1PHYTIMER_CLK_SRC>,
++				 <&camcc CAM_CC_CSI1PHYTIMER_CLK>,
++				 <&camcc CAM_CC_IFE_0_CLK>,
++				 <&camcc CAM_CC_IFE_0_CLK_SRC>,
++				 <&camcc CAM_CC_IFE_0_AXI_CLK>,
++				 <&camcc CAM_CC_IFE_0_CPHY_RX_CLK>,
++				 <&camcc CAM_CC_IFE_0_CSID_CLK>,
++				 <&camcc CAM_CC_IFE_0_CSID_CLK_SRC>,
++				 <&camcc CAM_CC_IFE_1_CLK>,
++				 <&camcc CAM_CC_IFE_1_CLK_SRC>,
++				 <&camcc CAM_CC_IFE_1_AXI_CLK>,
++				 <&camcc CAM_CC_IFE_1_CPHY_RX_CLK>,
++				 <&camcc CAM_CC_IFE_1_CSID_CLK>,
++				 <&camcc CAM_CC_IFE_1_CSID_CLK_SRC>;
++			clock-names = "camnoc_axi", "soc_ahb", "slow_ahb_src",
++				      "cpas_ahb", "cphy_rx_src",
++				      "csiphy0", "csiphy0_timer_src", "csiphy0_timer",
++				      "csiphy1", "csiphy1_timer_src", "csiphy1_timer",
++				      "vfe0", "vfe0_src", "vfe0_axi",
++				      "vfe0_cphy_rx", "csi0", "csi0_src",
++				      "vfe1", "vfe1_src", "vfe1_axi",
++				      "vfe1_cphy_rx", "csi1", "csi1_src";
++
++			iommus = <&apps_smmu 0x840 0x620>,
++				 <&apps_smmu 0x860 0x620>,
++				 <&apps_smmu 0xA40 0x620>,
++				 <&apps_smmu 0xA60 0x620>,
++				 <&apps_smmu 0xC40 0x620>,
++				 <&apps_smmu 0xC60 0x620>,
++				 <&apps_smmu 0xE40 0x620>,
++				 <&apps_smmu 0xE60 0x620>;
++		};
++
++		cci: i2c@ac4a000 {
++			compatible = "qcom,sm8250-cci";
++			reg = <0 0x0ac4a000 0 0x1000>;
++			#address-cells = <1>;
++			#size-cells = <0>;
++			interrupts = <GIC_SPI 460 IRQ_TYPE_EDGE_RISING>;
++			power-domains = <&camcc TITAN_TOP_GDSC>;
++			clocks = <&camcc CAM_CC_CAMNOC_AXI_CLK>,
++				 <&camcc CAM_CC_SLOW_AHB_CLK_SRC>,
++				 <&camcc CAM_CC_CPAS_AHB_CLK>,
++				 <&camcc CAM_CC_CORE_AHB_CLK>,
++				 <&camcc CAM_CC_CCI_0_CLK>,
++				 <&camcc CAM_CC_CCI_0_CLK_SRC>;
++			clock-names = "camnoc_axi", "slow_ahb_src", "cpas_ahb",
++				      "core_ahb", "cci", "cci_src";
++			assigned-clocks = <&camcc CAM_CC_CAMNOC_AXI_CLK>,
++					  <&camcc CAM_CC_CCI_0_CLK>;
++			assigned-clock-rates = <80000000>, <37500000>;
++			status = "disabled";
++
++			cci_i2c0: i2c-bus@0 {
++				reg = <0>;
++				clock-frequency = <400000>;
++				#address-cells = <1>;
++				#size-cells = <0>;
++			};
++
++			cci_i2c1: i2c-bus@1 {
++				reg = <1>;
++				clock-frequency = <400000>;
++				#address-cells = <1>;
++				#size-cells = <0>;
++			};
++		};
++
+ 		mdss: display-subsystem@ae00000 {
+ 			compatible = "qcom,sm8150-mdss";
+ 			reg = <0 0x0ae00000 0 0x1000>;
+git.exe : warning: in the working copy of 'arch/arm64/boot/dts/qcom/sm8150-xiaomi
+-nabu.dts', LF will be replaced by CRLF the next time Git touches it
+所在位置 行:15 字符: 8
++   $d = & $git diff --no-index --no-color -- $a $b 2>&1 | Out-String
++        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (warning: in the... Git touches it:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+warning: in the working copy of 'arch/arm64/boot/dts/qcom/sm8150-xiaomi-nabu.dts', LF wi
+ll be replaced by CRLF the next time Git touches it
+diff --git a/arch/arm64/boot/dts/qcom/sm8150-xiaomi-nabu.dts b/arch/arm64/boot/dts/qcom/sm8150-xiaomi-nabu.dts
+index 864acb5..a9f7f75 100644
+--- a/arch/arm64/boot/dts/qcom/sm8150-xiaomi-nabu.dts
++++ b/arch/arm64/boot/dts/qcom/sm8150-xiaomi-nabu.dts
+@@ -1152,3 +1152,187 @@
+                reg = <0xbc 0x4>;
+        };
+ };
++
++/*
++ * Camera bring-up (phase 1): CCI bus, sensor power and I2C probe only.
++ * The CAMSS block (CSIPHY/CSID/VFE) is not described yet, so both sensors
++ * register as V4L2 subdevices without a working media pipeline.
++ */
++/ {
++	vreg_cam_vdig: regulator-cam-vdig {
++		compatible = "regulator-fixed";
++		regulator-name = "cam_vdig";
++		regulator-min-microvolt = <1200000>;
++		regulator-max-microvolt = <1200000>;
++		regulator-enable-ramp-delay = <135>;
++		enable-active-high;
++		gpio = <&pm8150l_gpios 3 GPIO_ACTIVE_HIGH>;
++		vin-supply = <&vreg_s4a_1p8>;
++	};
++
++	vreg_cam_vana_rear: regulator-cam-vana-rear {
++		compatible = "regulator-fixed";
++		regulator-name = "cam_vana_rear";
++		regulator-min-microvolt = <3008000>;
++		regulator-max-microvolt = <3008000>;
++		regulator-enable-ramp-delay = <135>;
++		enable-active-high;
++		gpio = <&tlmm 11 GPIO_ACTIVE_HIGH>;
++		vin-supply = <&vreg_bob>;
++	};
++
++	vreg_cam_vana_front: regulator-cam-vana-front {
++		compatible = "regulator-fixed";
++		regulator-name = "cam_vana_front";
++		regulator-min-microvolt = <3008000>;
++		regulator-max-microvolt = <3008000>;
++		regulator-enable-ramp-delay = <135>;
++		enable-active-high;
++		gpio = <&tlmm 31 GPIO_ACTIVE_HIGH>;
++		vin-supply = <&vreg_bob>;
++	};
++};
++
++&tlmm {
++	cam_sensor_mclk0_active: cam-sensor-mclk0-active {
++		pins = "gpio13";
++		function = "cam_mclk";
++		drive-strength = <2>;
++		bias-disable;
++	};
++
++	cam_sensor_mclk0_suspend: cam-sensor-mclk0-suspend {
++		pins = "gpio13";
++		function = "cam_mclk";
++		drive-strength = <2>;
++		bias-pull-down;
++	};
++
++	cam_sensor_mclk1_active: cam-sensor-mclk1-active {
++		pins = "gpio14";
++		function = "cam_mclk";
++		drive-strength = <2>;
++		bias-disable;
++	};
++
++	cam_sensor_mclk1_suspend: cam-sensor-mclk1-suspend {
++		pins = "gpio14";
++		function = "cam_mclk";
++		drive-strength = <2>;
++		bias-pull-down;
++	};
++
++	cam_sensor_rear_reset: cam-sensor-rear-reset {
++		pins = "gpio28";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-disable;
++		output-low;
++	};
++
++	cam_sensor_front_reset: cam-sensor-front-reset {
++		pins = "gpio30";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-disable;
++		output-low;
++	};
++
++	cci0_default: cci0-default {
++		pins = "gpio17", "gpio18", "gpio19", "gpio20";
++		function = "cci_i2c";
++		drive-strength = <2>;
++		bias-disable;
++	};
++};
++
++&cci {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&cci0_default>;
++};
++
++&cci_i2c0 {
++	ov13b10: camera@10 {
++		compatible = "ovti,ov13b10";
++		reg = <0x10>;
++		clock-frequency = <19200000>;
++		clocks = <&camcc CAM_CC_MCLK0_CLK>;
++		assigned-clocks = <&camcc CAM_CC_MCLK0_CLK>;
++		assigned-clock-rates = <19200000>;
++		reset-gpios = <&tlmm 28 GPIO_ACTIVE_LOW>;
++		pinctrl-names = "default", "standby";
++		pinctrl-0 = <&cam_sensor_mclk0_active &cam_sensor_rear_reset>;
++		pinctrl-1 = <&cam_sensor_mclk0_suspend &cam_sensor_rear_reset>;
++		dovdd-supply = <&vreg_l1c_1p8>;
++		avdd-supply = <&vreg_cam_vana_rear>;
++		dvdd-supply = <&vreg_cam_vdig>;
++		status = "okay";
++
++		port {
++			ov13b10_ep: endpoint {
++				clock-lanes = <0>;
++				data-lanes = <1 2 3 4>;
++				link-frequencies = /bits/ 64 <560000000>;
++				remote-endpoint = <&camss_ep0>;
++			};
++		};
++	};
++};
++
++&cci_i2c1 {
++	ov8856: camera@10 {
++		compatible = "ovti,ov8856";
++		reg = <0x10>;
++		clock-frequency = <19200000>;
++		clocks = <&camcc CAM_CC_MCLK1_CLK>;
++		clock-names = "xvclk";
++		assigned-clocks = <&camcc CAM_CC_MCLK1_CLK>;
++		assigned-clock-rates = <19200000>;
++		reset-gpios = <&tlmm 30 GPIO_ACTIVE_LOW>;
++		pinctrl-names = "default", "standby";
++		pinctrl-0 = <&cam_sensor_mclk1_active &cam_sensor_front_reset>;
++		pinctrl-1 = <&cam_sensor_mclk1_suspend &cam_sensor_front_reset>;
++		dovdd-supply = <&vreg_l1c_1p8>;
++		avdd-supply = <&vreg_cam_vana_front>;
++		dvdd-supply = <&vreg_cam_vdig>;
++		status = "okay";
++
++		port {
++			ov8856_ep: endpoint {
++				clock-lanes = <0>;
++				data-lanes = <1 2 3 4>;
++				link-frequencies = /bits/ 64 <360000000 180000000>;
++				remote-endpoint = <&camss_ep1>;
++			};
++		};
++	};
++};
++
++&camss {
++	status = "okay";
++	vdda-phy-supply = <&vreg_l3c_1p2>;
++
++	ports {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		port@0 {
++			reg = <0>;
++			camss_ep0: endpoint {
++				clock-lanes = <0>;
++				data-lanes = <1 2 3 4>;
++				remote-endpoint = <&ov13b10_ep>;
++			};
++		};
++
++		port@1 {
++			reg = <1>;
++			camss_ep1: endpoint {
++				clock-lanes = <0>;
++				data-lanes = <1 2 3 4>;
++				remote-endpoint = <&ov8856_ep>;
++			};
++		};
++	};
++};
+git.exe : warning: in the working copy of 'drivers/media/i2c/ov13b10.c', LF will 
+be replaced by CRLF the next time Git touches it
+所在位置 行:15 字符: 8
++   $d = & $git diff --no-index --no-color -- $a $b 2>&1 | Out-String
++        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (warning: in the... Git touches it:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+warning: in the working copy of 'drivers/media/i2c/ov13b10.c', LF will be replaced by CR
+LF the next time Git touches it
+diff --git a/drivers/media/i2c/ov13b10.c b/drivers/media/i2c/ov13b10.c
+index 73c844a..b5a967a 100644
+--- a/drivers/media/i2c/ov13b10.c
++++ b/drivers/media/i2c/ov13b10.c
+@@ -8,6 +8,7 @@
+ #include <linux/i2c.h>
+ #include <linux/module.h>
+ #include <linux/pm_runtime.h>
++#include <linux/regulator/consumer.h>
+ #include <media/v4l2-ctrls.h>
+ #include <media/v4l2-device.h>
+ #include <media/v4l2-fwnode.h>
+@@ -627,6 +628,12 @@ static const struct ov13b10_mode supported_modes[] = {
+ 	},
+ };
+ 
++static const char * const ov13b10_supply_names[] = {
++	"dovdd",	/* Digital I/O power */
++	"avdd",		/* Analog power */
++	"dvdd",		/* Digital core power */
++};
++
+ struct ov13b10 {
+ 	struct v4l2_subdev sd;
+ 	struct media_pad pad;
+@@ -634,7 +641,7 @@ struct ov13b10 {
+ 	struct v4l2_ctrl_handler ctrl_handler;
+ 
+ 	struct clk *img_clk;
+-	struct regulator *avdd;
++	struct regulator_bulk_data supplies[ARRAY_SIZE(ov13b10_supply_names)];
+ 	struct gpio_desc *reset;
+ 
+ 	/* V4L2 Controls */
+@@ -1117,8 +1124,8 @@ static int ov13b10_power_off(struct device *dev)
+ 
+ 	gpiod_set_value_cansleep(ov13b10->reset, 1);
+ 
+-	if (ov13b10->avdd)
+-		regulator_disable(ov13b10->avdd);
++	regulator_bulk_disable(ARRAY_SIZE(ov13b10_supply_names),
++			       ov13b10->supplies);
+ 
+ 	clk_disable_unprepare(ov13b10->img_clk);
+ 
+@@ -1137,13 +1144,12 @@ static int ov13b10_power_on(struct device *dev)
+ 		return ret;
+ 	}
+ 
+-	if (ov13b10->avdd) {
+-		ret = regulator_enable(ov13b10->avdd);
+-		if (ret < 0) {
+-			dev_err(dev, "failed to enable avdd: %d", ret);
+-			clk_disable_unprepare(ov13b10->img_clk);
+-			return ret;
+-		}
++	ret = regulator_bulk_enable(ARRAY_SIZE(ov13b10_supply_names),
++				    ov13b10->supplies);
++	if (ret < 0) {
++		dev_err(dev, "failed to enable regulators\n");
++		clk_disable_unprepare(ov13b10->img_clk);
++		return ret;
+ 	}
+ 
+ 	gpiod_set_value_cansleep(ov13b10->reset, 0);
+@@ -1411,14 +1417,13 @@ static int ov13b10_get_pm_resources(struct device *dev)
+ 		return dev_err_probe(dev, PTR_ERR(ov13b->img_clk),
+ 				     "failed to get imaging clock\n");
+ 
+-	ov13b->avdd = devm_regulator_get_optional(dev, "avdd");
+-	if (IS_ERR(ov13b->avdd)) {
+-		ret = PTR_ERR(ov13b->avdd);
+-		ov13b->avdd = NULL;
+-		if (ret != -ENODEV)
+-			return dev_err_probe(dev, ret,
+-					     "failed to get avdd regulator\n");
+-	}
++	for (int i = 0; i < ARRAY_SIZE(ov13b10_supply_names); i++)
++		ov13b->supplies[i].supply = ov13b10_supply_names[i];
++
++	ret = devm_regulator_bulk_get(dev, ARRAY_SIZE(ov13b10_supply_names),
++				      ov13b->supplies);
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to get regulators\n");
+ 
+ 	return 0;
+ }
+@@ -1613,11 +1618,18 @@ static const struct acpi_device_id ov13b10_acpi_ids[] = {
+ MODULE_DEVICE_TABLE(acpi, ov13b10_acpi_ids);
+ #endif
+ 
++static const struct of_device_id ov13b10_of_ids[] = {
++	{ .compatible = "ovti,ov13b10" },
++	{ /* sentinel */ }
++};
++MODULE_DEVICE_TABLE(of, ov13b10_of_ids);
++
+ static struct i2c_driver ov13b10_i2c_driver = {
+ 	.driver = {
+ 		.name = "ov13b10",
+ 		.pm = pm_ptr(&ov13b10_pm_ops),
+ 		.acpi_match_table = ACPI_PTR(ov13b10_acpi_ids),
++		.of_match_table = ov13b10_of_ids,
+ 	},
+ 	.probe = ov13b10_probe,
+ 	.remove = ov13b10_remove,
+git.exe : warning: in the working copy of 'drivers/media/platform/qcom/camss/cams
+s.c', LF will be replaced by CRLF the next time Git touches it
+所在位置 行:15 字符: 8
++   $d = & $git diff --no-index --no-color -- $a $b 2>&1 | Out-String
++        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (warning: in the... Git touches it:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+warning: in the working copy of 'drivers/media/platform/qcom/camss/camss.c', LF will be 
+replaced by CRLF the next time Git touches it
+diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
+index a85e9df..4352858 100644
+--- a/drivers/media/platform/qcom/camss/camss.c
++++ b/drivers/media/platform/qcom/camss/camss.c
+@@ -2898,6 +2898,179 @@ static const struct camss_resources sdm660_resources = {
+ 	.link_entities = camss_link_entities
+ };
+ 
++/*
++ * SM8150 (nabu) - camss 1.7.5 generation.
++ * Phase 2 bring-up: only the two full CSIPHY/CSID/VFE instances that feed the
++ * rear (CSIPHY0) and front (CSIPHY1) sensors are described for now.
++ */
++static const struct camss_subdev_resources csiphy_res_8150[] = {
++	/* CSIPHY0 */
++	{
++		.regulators = { "vdda-phy" },
++		.clock = { "camnoc_axi", "soc_ahb", "slow_ahb_src",
++				"cpas_ahb", "cphy_rx_src", "csiphy0",
++				"csiphy0_timer_src", "csiphy0_timer" },
++		.clock_rate = { { 0 },
++				{ 0 },
++				{ 0 },
++				{ 0 },
++				{ 0 },
++				{ 0 },
++				{ 0 },
++				{ 19200000, 240000000, 269333333 } },
++		.reg = { "csiphy0" },
++		.interrupt = { "csiphy0" },
++		.csiphy = {
++			.hw_ops = &csiphy_ops_3ph_1_0,
++			.formats = &csiphy_formats_sdm845
++		}
++	},
++
++	/* CSIPHY1 */
++	{
++		.regulators = { "vdda-phy" },
++		.clock = { "camnoc_axi", "soc_ahb", "slow_ahb_src",
++				"cpas_ahb", "cphy_rx_src", "csiphy1",
++				"csiphy1_timer_src", "csiphy1_timer" },
++		.clock_rate = { { 0 },
++				{ 0 },
++				{ 0 },
++				{ 0 },
++				{ 0 },
++				{ 0 },
++				{ 0 },
++				{ 19200000, 240000000, 269333333 } },
++		.reg = { "csiphy1" },
++		.interrupt = { "csiphy1" },
++		.csiphy = {
++			.hw_ops = &csiphy_ops_3ph_1_0,
++			.formats = &csiphy_formats_sdm845
++		}
++	},
++};
++
++static const struct camss_subdev_resources csid_res_8150[] = {
++	/* CSID0 */
++	{
++		.regulators = {},
++		.clock = { "cpas_ahb", "cphy_rx_src", "slow_ahb_src",
++				"soc_ahb", "vfe0", "vfe0_src",
++				"vfe0_cphy_rx", "csi0",
++				"csi0_src" },
++		.clock_rate = { { 0 },
++				{ 384000000 },
++				{ 80000000 },
++				{ 0 },
++				{ 19200000, 100000000, 320000000, 404000000, 480000000, 600000000 },
++				{ 320000000 },
++				{ 0 },
++				{ 19200000, 75000000, 384000000, 538666667 },
++				{ 384000000 } },
++		.reg = { "csid0" },
++		.interrupt = { "csid0" },
++		.csid = {
++			.hw_ops = &csid_ops_gen2,
++			.parent_dev_ops = &vfe_parent_dev_ops,
++			.formats = &csid_formats_gen2
++		}
++	},
++
++	/* CSID1 */
++	{
++		.regulators = {},
++		.clock = { "cpas_ahb", "cphy_rx_src", "slow_ahb_src",
++				"soc_ahb", "vfe1", "vfe1_src",
++				"vfe1_cphy_rx", "csi1",
++				"csi1_src" },
++		.clock_rate = { { 0 },
++				{ 384000000 },
++				{ 80000000 },
++				{ 0 },
++				{ 19200000, 100000000, 320000000, 404000000, 480000000, 600000000 },
++				{ 320000000 },
++				{ 0 },
++				{ 19200000, 75000000, 384000000, 538666667 },
++				{ 384000000 } },
++		.reg = { "csid1" },
++		.interrupt = { "csid1" },
++		.csid = {
++			.hw_ops = &csid_ops_gen2,
++			.parent_dev_ops = &vfe_parent_dev_ops,
++			.formats = &csid_formats_gen2
++		}
++	},
++};
++
++static const struct camss_subdev_resources vfe_res_8150[] = {
++	/* VFE0 */
++	{
++		.regulators = {},
++		.clock = { "camnoc_axi", "cpas_ahb", "slow_ahb_src",
++				"soc_ahb", "vfe0", "vfe0_axi",
++				"vfe0_src", "csi0",
++				"csi0_src"},
++		.clock_rate = { { 0 },
++				{ 0 },
++				{ 80000000 },
++				{ 0 },
++				{ 19200000, 100000000, 320000000, 404000000, 480000000, 600000000 },
++				{ 0 },
++				{ 320000000 },
++				{ 19200000, 75000000, 384000000, 538666667 },
++				{ 384000000 } },
++		.reg = { "vfe0" },
++		.interrupt = { "vfe0" },
++		.vfe = {
++			.line_num = 4,
++			.has_pd = true,
++			.pd_name = "ife0",
++			.hw_ops = &vfe_ops_170,
++			.formats_rdi = &vfe_formats_rdi_845,
++			.formats_pix = &vfe_formats_pix_845
++		}
++	},
++
++	/* VFE1 */
++	{
++		.regulators = {},
++		.clock = { "camnoc_axi", "cpas_ahb", "slow_ahb_src",
++				"soc_ahb", "vfe1", "vfe1_axi",
++				"vfe1_src", "csi1",
++				"csi1_src"},
++		.clock_rate = { { 0 },
++				{ 0 },
++				{ 80000000 },
++				{ 0 },
++				{ 19200000, 100000000, 320000000, 404000000, 480000000, 600000000 },
++				{ 0 },
++				{ 320000000 },
++				{ 19200000, 75000000, 384000000, 538666667 },
++				{ 384000000 } },
++		.reg = { "vfe1" },
++		.interrupt = { "vfe1" },
++		.vfe = {
++			.line_num = 4,
++			.has_pd = true,
++			.pd_name = "ife1",
++			.hw_ops = &vfe_ops_170,
++			.formats_rdi = &vfe_formats_rdi_845,
++			.formats_pix = &vfe_formats_pix_845
++		}
++	},
++};
++
++static const struct camss_resources sm8150_resources = {
++	.version = CAMSS_8150,
++	.pd_name = "top",
++	.csiphy_res = csiphy_res_8150,
++	.csid_res = csid_res_8150,
++	.vfe_res = vfe_res_8150,
++	.csiphy_num = ARRAY_SIZE(csiphy_res_8150),
++	.csid_num = ARRAY_SIZE(csid_res_8150),
++	.vfe_num = ARRAY_SIZE(vfe_res_8150),
++	.link_entities = camss_link_entities
++};
++
+ static const struct camss_resources sdm845_resources = {
+ 	.version = CAMSS_845,
+ 	.csiphy_res = csiphy_res_845,
+@@ -2960,6 +3133,7 @@ static const struct of_device_id camss_dt_match[] = {
+ 	{ .compatible = "qcom,sc8280xp-camss", .data = &sc8280xp_resources },
+ 	{ .compatible = "qcom,sdm660-camss", .data = &sdm660_resources },
+ 	{ .compatible = "qcom,sdm845-camss", .data = &sdm845_resources },
++	{ .compatible = "qcom,sm8150-camss", .data = &sm8150_resources },
+ 	{ .compatible = "qcom,sm8250-camss", .data = &sm8250_resources },
+ 	{ }
+ };
+git.exe : warning: in the working copy of 'drivers/media/platform/qcom/camss/cams
+s.h', LF will be replaced by CRLF the next time Git touches it
+所在位置 行:15 字符: 8
++   $d = & $git diff --no-index --no-color -- $a $b 2>&1 | Out-String
++        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (warning: in the... Git touches it:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+warning: in the working copy of 'drivers/media/platform/qcom/camss/camss.h', LF will be 
+replaced by CRLF the next time Git touches it
+diff --git a/drivers/media/platform/qcom/camss/camss.h b/drivers/media/platform/qcom/camss/camss.h
+index 9a046ee..080180c 100644
+--- a/drivers/media/platform/qcom/camss/camss.h
++++ b/drivers/media/platform/qcom/camss/camss.h
+@@ -84,6 +84,7 @@ enum camss_version {
+ 	CAMSS_8x96,
+ 	CAMSS_8250,
+ 	CAMSS_8280XP,
++	CAMSS_8150,
+ 	CAMSS_845,
+ };
+ 
+git.exe : warning: in the working copy of 'drivers/media/platform/qcom/camss/cams
+s-vfe.c', LF will be replaced by CRLF the next time Git touches it
+所在位置 行:15 字符: 8
++   $d = & $git diff --no-index --no-color -- $a $b 2>&1 | Out-String
++        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (warning: in the... Git touches it:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+warning: in the working copy of 'drivers/media/platform/qcom/camss/camss-vfe.c', LF will
+ be replaced by CRLF the next time Git touches it
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
+index 3c5811c..2876207 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe.c
++++ b/drivers/media/platform/qcom/camss/camss-vfe.c
+@@ -339,6 +339,7 @@ static u32 vfe_src_pad_code(struct vfe_line *line, u32 sink_code,
+ 	case CAMSS_8x96:
+ 	case CAMSS_8250:
+ 	case CAMSS_8280XP:
++	case CAMSS_8150:
+ 	case CAMSS_845:
+ 		switch (sink_code) {
+ 		case MEDIA_BUS_FMT_YUYV8_1X16:
+@@ -1701,6 +1702,7 @@ static int vfe_bpl_align(struct vfe_device *vfe)
+ 	case CAMSS_7280:
+ 	case CAMSS_8250:
+ 	case CAMSS_8280XP:
++	case CAMSS_8150:
+ 	case CAMSS_845:
+ 		ret = 16;
+ 		break;
+git.exe : warning: in the working copy of 'drivers/media/platform/qcom/camss/cams
+s-csiphy-3ph-1-0.c', LF will be replaced by CRLF the next time Git touches it
+所在位置 行:15 字符: 8
++   $d = & $git diff --no-index --no-color -- $a $b 2>&1 | Out-String
++        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (warning: in the... Git touches it:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+warning: in the working copy of 'drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.
+c', LF will be replaced by CRLF the next time Git touches it
+diff --git a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c b/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
+index f341f7b..d4eb4be 100644
+--- a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
++++ b/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
+@@ -521,6 +521,10 @@ static void csiphy_gen2_config_lanes(struct csiphy_device *csiphy,
+ 		r = &lane_regs_sdm845[0][0];
+ 		array_size = ARRAY_SIZE(lane_regs_sdm845[0]);
+ 		break;
++	case CAMSS_8150:
++		r = &lane_regs_sm8250[0][0];
++		array_size = ARRAY_SIZE(lane_regs_sm8250[0]);
++		break;
+ 	default:
+ 		WARN(1, "unknown cspi version\n");
+ 		return;

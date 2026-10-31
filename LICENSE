@@ -1,0 +1,15 @@
+SPDX-License-Identifier: GPL-2.0-only
+
+The patches, scripts and build instructions in this repository are licensed
+under the GNU General Public License, version 2 only (GPL-2.0), matching the
+Linux kernel they modify.
+
+The full license text is available at:
+  https://www.gnu.org/licenses/old-licenses/gpl-2.0.txt
+
+The documentation files (README.md and everything under docs/) are licensed
+under Creative Commons Attribution 4.0 International (CC BY 4.0):
+  https://creativecommons.org/licenses/by/4.0/
+
+This project is not affiliated with Xiaomi or Qualcomm. "Xiaomi", "Redmi",
+"Snapdragon" and related marks belong to their respective owners.

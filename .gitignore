@@ -1,0 +1,14 @@
+﻿# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# Local device artifacts (never commit device dumps or images)
+collect/
+*.tar.gz
+*.zip
+*.img
+*.xz
+*.efi
+*.dtb
